@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="account-wrap">
+            <div class="account-item clearfix js-item-menu">
+                <div class="content">
+                    @Html.ActionLink("Bonjour " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "btn btn-warning", @style="font-size:1em; color:#FFFFFF" })
+                </div>
+                <div class="account-dropdown js-dropdown">
+                    <div class="account-dropdown__body">
+                        <div class="account-dropdown__item">
+                            <a href="javascript:document.getElementById('logoutForm').submit()">
+                                <i class="zmdi zmdi-power"></i>Se déconnecter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="navbar-right">
+        <a> @Html.ActionLink("S'inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-primary", @style = "font-size:1em"})</a>
+        <a> @Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-primary", @style = "font-size:1em"})</a>
+    </div>
+}
